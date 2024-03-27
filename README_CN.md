@@ -15,3 +15,6 @@
     implementation("org.chromium.net:cronet-common:119.6045.31")
     implementation("org.chromium.net:cronet-embedded:119.6045.31")
 ```
+
+# Thanks
+[retrofit](https://github.com/square/retrofit)
