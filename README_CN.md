@@ -28,7 +28,6 @@
 interface Api {
 
     @GET("lishi/api.php")
-    @DisableCache
     fun todayCall(): Call<ResponseBody>
 
     @GET("lishi/api.php")
@@ -57,6 +56,10 @@ interface Api {
     // 输出结果
     println("Result: ${response.isSuccessful} \n ${response.body()?.string()}")
 ```
+
+## 新的接口注解
+`DisableCache` - 不使用缓存
+`PRIORITY` - 请求优先级
 
 # 从 Retrofit 迁移
 只需全局替换引用即可
