@@ -67,5 +67,8 @@ interface Api {
 
 mac全局替换快捷键：`shift + command + R`
 
+# 混淆
+已自动包含收缩和混淆规则。
+
 # Thanks
 [retrofit](https://github.com/square/retrofit)
