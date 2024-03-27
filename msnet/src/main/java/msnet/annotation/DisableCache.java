@@ -30,7 +30,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
- * 不使用缓存
+ * Do not use caching.
+ * <p>
+ * 不使用缓存.
  */
 @Target(METHOD)
 @Retention(RUNTIME)

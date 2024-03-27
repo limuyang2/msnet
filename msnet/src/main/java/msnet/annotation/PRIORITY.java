@@ -32,6 +32,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
 /**
+ * Request priority.
+ * <p>
  * 请求的优先级
  */
 @Target(METHOD)
