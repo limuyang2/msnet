@@ -59,10 +59,12 @@ interface Api {
 
 ## 新的接口注解
 `DisableCache` - 不使用缓存
+
 `PRIORITY` - 请求优先级
 
 # 从 Retrofit 迁移
 只需全局替换引用即可
+
 mac全局替换快捷键：`shift + command + R`
 
 # Thanks
