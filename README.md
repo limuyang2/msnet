@@ -45,22 +45,22 @@ interface Api {
 
 * Make a request
 ```kotlin
-    // 创建 CronetClient
+    // Create CronetClient
     val cronetClient = CronetClient.Builder(cronetEngine).build()
 
-    // 创建 msnet
+    // Create msnet
     val msnet = MSNet.Builder()
         .cronet(cronetClient)
         .baseUrl("https://api.oick.cn/")
         .build()
 
-    // 获取接口
+    // Get interface
     val api = msnet.create<Api>()
 
-    // 请求网络获取结果
+    // Request network to get results
     val response = api.todayResponse()
 
-    // 输出结果
+    // Output results
     println("Result: ${response.isSuccessful} \n ${response.body()?.string()}")
 ```
 
