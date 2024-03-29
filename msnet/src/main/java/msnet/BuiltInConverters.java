@@ -51,7 +51,7 @@ final class BuiltInConverters extends Converter.Factory {
           @NotNull Type type,
           @NotNull Annotation[] parameterAnnotations,
           @NotNull Annotation[] methodAnnotations,
-          @NotNull MSNet MSNet) {
+          @NotNull MSNet msNet) {
     if (RequestBody.class.isAssignableFrom(Utils.getRawType(type))) {
       return RequestBodyConverter.INSTANCE;
     }

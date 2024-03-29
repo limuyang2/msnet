@@ -25,6 +25,8 @@ package msnet;
 
 import android.annotation.TargetApi;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,7 +40,7 @@ import java.util.concurrent.CompletableFuture;
 final class CompletableFutureCallAdapterFactory extends CallAdapter.Factory {
   @Override
   public @Nullable CallAdapter<?, ?> get(
-          Type returnType, Annotation[] annotations, MSNet MSNet) {
+          @NonNull Type returnType, @NonNull Annotation[] annotations, @NonNull MSNet msNet) {
     if (getRawType(returnType) != CompletableFuture.class) {
       return null;
     }
@@ -70,6 +72,7 @@ final class CompletableFutureCallAdapterFactory extends CallAdapter.Factory {
       this.responseType = responseType;
     }
 
+    @NotNull
     @Override
     public Type responseType() {
       return responseType;
@@ -113,6 +116,7 @@ final class CompletableFutureCallAdapterFactory extends CallAdapter.Factory {
       this.responseType = responseType;
     }
 
+    @NotNull
     @Override
     public Type responseType() {
       return responseType;

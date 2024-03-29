@@ -15,6 +15,8 @@
  */
 package msnet;
 
+import androidx.annotation.NonNull;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -35,7 +37,7 @@ final class DefaultCallAdapterFactory extends CallAdapter.Factory {
 
   @Override
   public @Nullable CallAdapter<?, ?> get(
-          Type returnType, Annotation[] annotations, MSNet MSNet) {
+          @NonNull Type returnType, @NonNull Annotation[] annotations, @NonNull MSNet msNet) {
     if (getRawType(returnType) != Call.class) {
       return null;
     }
@@ -51,6 +53,7 @@ final class DefaultCallAdapterFactory extends CallAdapter.Factory {
             : callbackExecutor;
 
     return new CallAdapter<Object, Call<?>>() {
+      @NotNull
       @Override
       public Type responseType() {
         return responseType;

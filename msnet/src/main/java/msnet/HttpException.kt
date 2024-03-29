@@ -21,43 +21,37 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package msnet;
+package msnet
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import java.util.Objects
 
-import java.util.Objects;
+/** Exception for an unexpected, non-2xx HTTP response.  */
+open class HttpException(@field:Transient private val response: Response<*>) : RuntimeException(
+    getMessage(response)
+) {
+    private val _code: Int = response.code()
+    private val _message: String = response.message()
 
-/** Exception for an unexpected, non-2xx HTTP response. */
-public class HttpException extends RuntimeException {
-  private static String getMessage(@NotNull Response<?> response) {
-    Objects.requireNonNull(response, "response == null");
-    return "HTTP " + response.code() + " " + response.message();
-  }
 
-  private final int code;
-  private final String message;
-  private final transient Response<?> response;
+    /** HTTP status code.  */
+    fun code(): Int {
+        return _code
+    }
 
-  public HttpException(@NotNull Response<?> response) {
-    super(getMessage(response));
-    this.code = response.code();
-    this.message = response.message();
-    this.response = response;
-  }
+    /** HTTP status message.  */
+    fun message(): String {
+        return _message
+    }
 
-  /** HTTP status code. */
-  public int code() {
-    return code;
-  }
+    /** The full HTTP response. This may be null if the exception was serialized.  */
+    fun response(): Response<*> {
+        return response
+    }
 
-  /** HTTP status message. */
-  public String message() {
-    return message;
-  }
-
-  /** The full HTTP response. This may be null if the exception was serialized. */
-  public @Nullable Response<?> response() {
-    return response;
-  }
+    companion object {
+        private fun getMessage(response: Response<*>): String {
+            Objects.requireNonNull(response, "response == null")
+            return "HTTP " + response.code() + " " + response.message()
+        }
+    }
 }

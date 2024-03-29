@@ -59,7 +59,7 @@ interface Converter<F, T> {
             type: Type,
             parameterAnnotations: Array<Annotation>,
             methodAnnotations: Array<Annotation>,
-            MSNet: MSNet
+            msNet: MSNet
         ): Converter<*, okcronet.http.RequestBody?>? {
             return null
         }

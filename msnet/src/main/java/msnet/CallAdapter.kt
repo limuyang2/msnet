@@ -21,77 +21,78 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package msnet;
+package msnet
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.lang.annotation.Annotation;
-import java.lang.reflect.ParameterizedType;
-import java.lang.reflect.Type;
+import msnet.CallAdapter.Factory
+import java.lang.reflect.ParameterizedType
+import java.lang.reflect.Type
 
 /**
- * Adapts a {@link Call} with response type {@code R} into the type of {@code T}. Instances are
- * created by {@linkplain Factory a factory} which is {@linkplain
- * MSNet.Builder#addCallAdapterFactory(Factory) installed} into the {@link MSNet} instance.
+ * Adapts a [Call] with response type `R` into the type of `T`. Instances are
+ * created by [a factory][Factory] which is [ ][MSNet.Builder.addCallAdapterFactory] into the [MSNet] instance.
  */
-public interface CallAdapter<R, T> {
-  /**
-   * Returns the value type that this adapter uses when converting the HTTP response body to a Java
-   * object. For example, the response type for {@code Call<Repo>} is {@code Repo}. This type is
-   * used to prepare the {@code call} passed to {@code #adapt}.
-   *
-   * <p>Note: This is typically not the same type as the {@code returnType} provided to this call
-   * adapter's factory.
-   */
-  Type responseType();
-
-  /**
-   * Returns an instance of {@code T} which delegates to {@code call}.
-   *
-   * <p>For example, given an instance for a hypothetical utility, {@code Async}, this instance
-   * would return a new {@code Async<R>} which invoked {@code call} when run.
-   *
-   * <pre><code>
-   * &#64;Override
-   * public &lt;R&gt; Async&lt;R&gt; adapt(final Call&lt;R&gt; call) {
-   *   return Async.create(new Callable&lt;Response&lt;R&gt;&gt;() {
-   *     &#64;Override
-   *     public Response&lt;R&gt; call() throws Exception {
-   *       return call.execute();
-   *     }
-   *   });
-   * }
-   * </code></pre>
-   */
-  T adapt(@NotNull Call<R> call);
-
-  /**
-   * Creates {@link CallAdapter} instances based on the return type of {@linkplain
-   * MSNet#create(Class) the service interface} methods.
-   */
-  abstract class Factory {
+interface CallAdapter<R, T> {
     /**
-     * Returns a call adapter for interface methods that return {@code returnType}, or null if it
-     * cannot be handled by this factory.
+     * Returns the value type that this adapter uses when converting the HTTP response body to a Java
+     * object. For example, the response type for `Call<Repo>` is `Repo`. This type is
+     * used to prepare the `call` passed to `#adapt`.
+     *
+     *
+     * Note: This is typically not the same type as the `returnType` provided to this call
+     * adapter's factory.
      */
-    public abstract @Nullable CallAdapter<?, ?> get(
-            Type returnType, Annotation[] annotations, MSNet MSNet);
+    fun responseType(): Type
 
     /**
-     * Extract the upper bound of the generic parameter at {@code index} from {@code type}. For
-     * example, index 1 of {@code Map<String, ? extends Runnable>} returns {@code Runnable}.
+     * Returns an instance of `T` which delegates to `call`.
+     *
+     *
+     * For example, given an instance for a hypothetical utility, `Async`, this instance
+     * would return a new `Async<R>` which invoked `call` when run.
+     *
+     * <pre>`
+     * &#64;Override
+     * public <R> Async<R> adapt(final Call<R> call) {
+     * return Async.create(new Callable<Response<R>>() {
+     * &#64;Override
+     * public Response<R> call() throws Exception {
+     * return call.execute();
+     * }
+     * });
+     * }
+    `</pre> *
      */
-    protected static Type getParameterUpperBound(int index, ParameterizedType type) {
-      return Utils.getParameterUpperBound(index, type);
+    fun adapt(call: Call<R>): T
+
+    /**
+     * Creates [CallAdapter] instances based on the return type of [ ][MSNet.create] methods.
+     */
+    abstract class Factory {
+        /**
+         * Returns a call adapter for interface methods that return `returnType`, or null if it
+         * cannot be handled by this factory.
+         */
+        abstract operator fun get(
+            returnType: Type, annotations: Array<Annotation>, msNet: MSNet
+        ): CallAdapter<*, *>?
+
+        companion object {
+            /**
+             * Extract the upper bound of the generic parameter at `index` from `type`. For
+             * example, index 1 of `Map<String, ? extends Runnable>` returns `Runnable`.
+             */
+            @JvmStatic
+            protected fun getParameterUpperBound(index: Int, type: ParameterizedType?): Type {
+                return Utils.getParameterUpperBound(index, type)
+            }
+
+            /**
+             * Extract the raw class type from `type`. For example, the type representing `List<? extends Runnable>` returns `List.class`.
+             */
+            @JvmStatic
+            protected fun getRawType(type: Type?): Class<*> {
+                return Utils.getRawType(type)
+            }
+        }
     }
-
-    /**
-     * Extract the raw class type from {@code type}. For example, the type representing {@code
-     * List<? extends Runnable>} returns {@code List.class}.
-     */
-    protected static Class<?> getRawType(Type type) {
-      return Utils.getRawType(type);
-    }
-  }
 }

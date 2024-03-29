@@ -21,36 +21,36 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package msnet;
-
-import org.jetbrains.annotations.NotNull;
+package msnet
 
 /**
  * Communicates responses from a server or offline requests. One and only one method will be invoked
  * in response to a given request.
  *
- * <p>Callback methods are executed using the {@link MSNet} callback executor. When none is
+ *
+ * Callback methods are executed using the [MSNet] callback executor. When none is
  * specified, the following defaults are used:
  *
- * <ul>
- *   <li>Android: Callbacks are executed on the application's main (UI) thread.
- *   <li>JVM: Callbacks are executed on the background thread which performed the request.
- * </ul>
+ *
+ *  * Android: Callbacks are executed on the application's main (UI) thread.
+ *  * JVM: Callbacks are executed on the background thread which performed the request.
+ *
  *
  * @param <T> Successful response body type.
- */
-public interface Callback<T> {
-  /**
-   * Invoked for a received HTTP response.
-   *
-   * <p>Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
-   * Call {@link Response#isSuccessful()} to determine if the response indicates success.
-   */
-  void onResponse(@NotNull Call<T> call, @NotNull Response<T> response);
+</T> */
+interface Callback<T> {
+    /**
+     * Invoked for a received HTTP response.
+     *
+     *
+     * Note: An HTTP response may still indicate an application-level failure such as a 404 or 500.
+     * Call [Response.isSuccessful] to determine if the response indicates success.
+     */
+    fun onResponse(call: Call<T>, response: Response<T>)
 
-  /**
-   * Invoked when a network exception occurred talking to the server or when an unexpected exception
-   * occurred creating the request or processing the response.
-   */
-  void onFailure(@NotNull Call<T> call, @NotNull Throwable t);
+    /**
+     * Invoked when a network exception occurred talking to the server or when an unexpected exception
+     * occurred creating the request or processing the response.
+     */
+    fun onFailure(call: Call<T>, t: Throwable)
 }
