@@ -3,6 +3,8 @@ A type-safe HTTP client for Android, based on okcronet.
 
 Similar to Retrofit, this is a wrapper for [okcronet](https://github.com/limuyang2/okcronet). Usage is consistent with Retrofit.
 
+Even low-cost migration can be achieved by simply replacing the corresponding "import" reference.
+
 [中文](https://github.com/limuyang2/msnet/blob/main/README_CN.md)
 
 # Advantages of msnet
@@ -45,22 +47,22 @@ interface Api {
 
 * Make a request
 ```kotlin
-    // 创建 CronetClient
+    // Create CronetClient
     val cronetClient = CronetClient.Builder(cronetEngine).build()
 
-    // 创建 msnet
+    // Create msnet
     val msnet = MSNet.Builder()
         .cronet(cronetClient)
         .baseUrl("https://api.oick.cn/")
         .build()
 
-    // 获取接口
+    // Get interface
     val api = msnet.create<Api>()
 
-    // 请求网络获取结果
+    // Request network to get results
     val response = api.todayResponse()
 
-    // 输出结果
+    // Output results
     println("Result: ${response.isSuccessful} \n ${response.body()?.string()}")
 ```
 
