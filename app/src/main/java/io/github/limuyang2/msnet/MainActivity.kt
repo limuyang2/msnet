@@ -75,7 +75,7 @@ class MainActivity : AppCompatActivity() {
             val response = api.todayResponse()
 
             // 输出结果
-            viewBinding.tvInfo.text = "Result: ${response.isSuccessful} \n ${response.body()?.string()}"
+            viewBinding.tvInfo.text = "Result: ${response.message()} \n ${response.body()?.string()}"
         }
     }
 }
