@@ -21,90 +21,68 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-package msnet;
+package msnet
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import okcronet.http.ResponseBody
 
-import java.util.List;
-import java.util.Map;
-
-/** An HTTP response. */
-public final class Response<T> {
-
-  /**
-   * Create a successful response from {@code rawResponse} with {@code body} as the deserialized
-   * body.
-   */
-  public static <T> Response<T> success(@Nullable T body, @NotNull okcronet.http.Response rawResponse) {
-    if (!rawResponse.isSuccessful()) {
-      throw new IllegalArgumentException("rawResponse must be successful response");
+/** An HTTP response.  */
+class Response<T> private constructor(
+    private val rawResponse: okcronet.http.Response,
+    private val body: T?,
+    private val errorBody: ResponseBody?
+) {
+    /** The raw response from the HTTP client.  */
+    fun raw(): okcronet.http.Response {
+        return rawResponse
     }
-    return new Response<>(rawResponse, body, null);
-  }
 
-  /** Create an error response from {@code rawResponse} with {@code body} as the error body. */
-  public static <T> Response<T> error(@NotNull okcronet.http.ResponseBody body,@NotNull okcronet.http.Response rawResponse) {
-    if (rawResponse.isSuccessful()) {
-      throw new IllegalArgumentException("rawResponse should not be successful response");
+    /** HTTP status code.  */
+    fun code(): Int {
+        return rawResponse.code
     }
-    return new Response<>(rawResponse, null, body);
-  }
 
-  private final @NotNull okcronet.http.Response rawResponse;
-  private final @Nullable T body;
-  private final @Nullable okcronet.http.ResponseBody errorBody;
+    /** HTTP status message or null if unknown.  */
+    fun message(): String {
+        return rawResponse.urlResponseInfo.httpStatusText
+    }
 
-  private Response(
-          @NotNull okcronet.http.Response rawResponse, @Nullable T body, @Nullable okcronet.http.ResponseBody errorBody) {
-    this.rawResponse = rawResponse;
-    this.body = body;
-    this.errorBody = errorBody;
-  }
+    val allHeadersAsList: List<Map.Entry<String, String>>
+        /** HTTP headers.  */
+        get() = rawResponse.urlResponseInfo.allHeadersAsList
+    val allHeaders: Map<String, List<String>>
+        get() = rawResponse.urlResponseInfo.allHeaders
+    val isSuccessful: Boolean
+        /** Returns true if [.code] is in the range [200..300).  */
+        get() = rawResponse.isSuccessful
 
-  /** The raw response from the HTTP client. */
-  @NotNull
-  public okcronet.http.Response raw() {
-    return rawResponse;
-  }
+    /** The deserialized response body of a [successful][.isSuccessful] response.  */
+    fun body(): T? {
+        return body
+    }
 
-  /** HTTP status code. */
-  public int code() {
-    return rawResponse.getCode();
-  }
+    /** The raw response body of an [unsuccessful][.isSuccessful] response.  */
+    fun errorBody(): ResponseBody? {
+        return errorBody
+    }
 
-  /** HTTP status message or null if unknown. */
-  public String message() {
-    return  rawResponse.getUrlResponseInfo().getHttpStatusText();
-  }
+    override fun toString(): String {
+        return rawResponse.toString()
+    }
 
-  /** HTTP headers. */
-  public List<Map.Entry<String, String>> getAllHeadersAsList() {
-    return rawResponse.getUrlResponseInfo().getAllHeadersAsList();
-  }
+    companion object {
+        /**
+         * Create a successful response from `rawResponse` with `body` as the deserialized
+         * body.
+         */
+        fun <T> success(body: T?, rawResponse: okcronet.http.Response): Response<T> {
+            require(rawResponse.isSuccessful) { "rawResponse must be successful response" }
+            return Response(rawResponse, body, null)
+        }
 
-  public Map<String, List<String>> getAllHeaders() {
-    return rawResponse.getUrlResponseInfo().getAllHeaders();
-  }
-
-  /** Returns true if {@link #code()} is in the range [200..300). */
-  public boolean isSuccessful() {
-    return rawResponse.isSuccessful();
-  }
-
-  /** The deserialized response body of a {@linkplain #isSuccessful() successful} response. */
-  public @Nullable T body() {
-    return body;
-  }
-
-  /** The raw response body of an {@linkplain #isSuccessful() unsuccessful} response. */
-  public @Nullable okcronet.http.ResponseBody errorBody() {
-    return errorBody;
-  }
-
-  @NotNull
-  @Override
-  public String toString() {
-    return rawResponse.toString();
-  }
+        /** Create an error response from `rawResponse` with `body` as the error body.  */
+        fun <T> error(body: ResponseBody, rawResponse: okcronet.http.Response): Response<T> {
+            require(!rawResponse.isSuccessful) { "rawResponse should not be successful response" }
+            return Response(rawResponse, null, body)
+        }
+    }
 }
