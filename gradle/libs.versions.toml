@@ -12,7 +12,7 @@ kotlinxCoroutinesAndroid = "1.8.0"
 material = "1.10.0"
 activity = "1.8.0"
 constraintlayout = "2.1.4"
-okcronet = "1.0.0"
+okcronet = "1.0.1"
 okio = "3.8.0"
 
 [libraries]

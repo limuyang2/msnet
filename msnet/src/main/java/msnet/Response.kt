@@ -31,26 +31,28 @@ class Response<T> private constructor(
     private val body: T?,
     private val errorBody: ResponseBody?
 ) {
-    /** The raw response from the HTTP client.  */
+    /** The raw response from the HTTP client. */
     fun raw(): okcronet.http.Response {
         return rawResponse
     }
 
-    /** HTTP status code.  */
+    /** HTTP status code. */
     fun code(): Int {
         return rawResponse.code
     }
 
-    /** HTTP status message or null if unknown.  */
+    /** HTTP status message. */
     fun message(): String {
-        return rawResponse.urlResponseInfo.httpStatusText
+        return rawResponse.message
     }
 
     val allHeadersAsList: List<Map.Entry<String, String>>
         /** HTTP headers.  */
         get() = rawResponse.urlResponseInfo.allHeadersAsList
+
     val allHeaders: Map<String, List<String>>
         get() = rawResponse.urlResponseInfo.allHeaders
+
     val isSuccessful: Boolean
         /** Returns true if [.code] is in the range [200..300).  */
         get() = rawResponse.isSuccessful
