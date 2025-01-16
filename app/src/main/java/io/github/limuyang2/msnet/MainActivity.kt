@@ -1,6 +1,7 @@
 package io.github.limuyang2.msnet
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -75,7 +76,9 @@ class MainActivity : AppCompatActivity() {
             val response = api.todayResponse()
 
             // 输出结果
-            viewBinding.tvInfo.text = "Result: ${response.message()} \n ${response.body()?.string()}"
+            val str = "Result: ${response.message()} \n ${response.body()?.string()}"
+            viewBinding.tvInfo.text = str
+            Log.d("requset", str)
         }
     }
 }
