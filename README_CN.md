@@ -5,7 +5,7 @@
 ## 引入本库
 ```
     // 引入
-    implementation("io.github.limuyang2:msnet:1.0.1")
+    implementation("io.github.limuyang2:msnet:1.0.2")
 ```
 
 ## 引入 cronet 库

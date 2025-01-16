@@ -15,7 +15,7 @@ Even low-cost migration can be achieved by simply replacing the corresponding "i
 # Import
 ## Importing the library
 ```
-implementation("io.github.limuyang2:msnet:1.0.1")
+implementation("io.github.limuyang2:msnet:1.0.2")
 ```
 
 ## Importing the Cronet library
