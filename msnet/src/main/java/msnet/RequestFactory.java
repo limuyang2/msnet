@@ -693,7 +693,7 @@ final class RequestFactory {
             return ParameterHandler.RawPart.INSTANCE.iterable();
           } else if (rawParameterType.isArray()) {
             Class<?> arrayComponentType = rawParameterType.getComponentType();
-            if (!MultipartBody.Part.class.isAssignableFrom(arrayComponentType)) {
+            if (arrayComponentType == null || !MultipartBody.Part.class.isAssignableFrom(arrayComponentType)) {
               throw parameterError(
                   method,
                   p,

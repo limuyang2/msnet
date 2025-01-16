@@ -103,12 +103,10 @@ final class BuiltInConverters extends Converter.Factory {
 
     @Override
     public ResponseBody convert(@NotNull ResponseBody value) throws IOException {
-      try {
-        // Buffer the entire body to avoid future I/O.
-        return Utils.buffer(value);
-      } finally {
-        value.close();
-      }
+        try (value) {
+            // Buffer the entire body to avoid future I/O.
+            return Utils.buffer(value);
+        }
     }
   }
 
