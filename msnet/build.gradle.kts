@@ -86,7 +86,7 @@ afterEvaluate {
                 version = versionName
 
                 pom {
-                    name.value("okcronet")
+                    name.value("msnet")
                     description.value("A network request library.")
                     url.value("https://github.com/limuyang2/msnet")
 
