@@ -1,5 +1,5 @@
 [versions]
-agp = "8.12.0"
+agp = "8.13.0"
 annotation = "1.9.1"
 cronetApi = "119.6045.31"
 kotlin = "2.2.10"
@@ -13,7 +13,7 @@ material = "1.12.0"
 activity = "1.10.1"
 constraintlayout = "2.2.1"
 okcronet = "1.0.6"
-okio = "3.16.0"
+okio = "3.16.2"
 
 [libraries]
 androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
