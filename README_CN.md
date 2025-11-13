@@ -12,9 +12,9 @@
 ### 中国大陆内
 ```
     // 中国大陆建议的引入方式，其中包含了本地 so 库
-    implementation("org.chromium.net:cronet-api:119.6045.31")
-    implementation("org.chromium.net:cronet-common:119.6045.31")
-    implementation("org.chromium.net:cronet-embedded:119.6045.31")
+    implementation("org.chromium.net:cronet-api:141.7340.3")
+    implementation("org.chromium.net:cronet-common:141.7340.3")
+    implementation("org.chromium.net:cronet-embedded:141.7340.3")
 ```
 Google 官方提供的包不是最新的，如你想使用与`chromium`同步的最新版本，可以访问官方的存储桶获得[google cloud](https://console.cloud.google.com/storage/browser/chromium-cronet/android?pageState=(%22StorageObjectListTable%22:(%22f%22:%22%255B%255D%22))&prefix=&forceOnObjectsSortingFiltering=true)
 
@@ -23,7 +23,7 @@ Google 官方提供的包不是最新的，如你想使用与`chromium`同步的
     // 如果你是直接使用 Google Play 的海外app，不需要考虑中国大陆的情况，可以直接使用 Google Play 提供的 so，不需要在APK中打包 so 文件
     // 参考链接 https://developer.android.com/develop/connectivity/cronet/start#kts
     //
-    implementation("com.google.android.gms:play-services-cronet:18.0.1")
+    implementation("com.google.android.gms:play-services-cronet:18.1.1")
 ```
 
 
