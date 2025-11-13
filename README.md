@@ -21,14 +21,14 @@ implementation("io.github.limuyang2:msnet:1.0.5")
 ## Importing the Cronet library
 ### Recommended method for mainland China(Contains complete local `so` library):
 ```
-implementation("org.chromium.net:cronet-api:119.6045.31")
-implementation("org.chromium.net:cronet-common:119.6045.31")
-implementation("org.chromium.net:cronet-embedded:119.6045.31")
+implementation("org.chromium.net:cronet-api:141.7340.3")
+implementation("org.chromium.net:cronet-common:141.7340.3")
+implementation("org.chromium.net:cronet-embedded:141.7340.3")
 ```
 ### Method for using Google Play overseas:
 Reference link - [android develop](https://developer.android.com/develop/connectivity/cronet/start#kts)
 ```
-implementation("com.google.android.gms:play-services-cronet:18.0.1")
+implementation("com.google.android.gms:play-services-cronet:18.1.1")
 ```
 
 # Using
