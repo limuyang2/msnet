@@ -61,12 +61,14 @@ class MainActivity : AppCompatActivity() {
     private fun request() {
         lifecycleScope.launch {
             // 创建 CronetClient
-            val cronetClient = CronetClient.Builder(cronetEngine).build()
+            val cronetClient = CronetClient.Builder(cronetEngine)
+                .setReadTimeoutMillis(10_000)
+                .build()
 
             // 创建 msnet
             val msnet = MSNet.Builder()
                 .cronet(cronetClient)
-                .baseUrl("https://api.oick.cn/")
+                .baseUrl("https://http3check.net/")
                 .build()
 
             // 获取接口

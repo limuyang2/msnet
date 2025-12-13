@@ -17,7 +17,7 @@ interface Api {
     @DisableCache
     fun todayCall(): Call<ResponseBody>
 
-    @GET("lishi/api.php")
+    @GET("/")
     @DisableCache
     suspend fun todayResponse(): Response<ResponseBody>
 }

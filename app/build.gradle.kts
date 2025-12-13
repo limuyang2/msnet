@@ -5,12 +5,12 @@ plugins {
 
 android {
     namespace = "io.github.limuyang2.msnet"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "io.github.limuyang2.msnet"
-        minSdk = 21
-        targetSdk = 35
+        minSdk = 24
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -27,11 +27,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
     }
     kotlin {
-        jvmToolchain(17)
+        jvmToolchain(21)
     }
     buildFeatures {
         viewBinding = true
@@ -51,7 +51,7 @@ dependencies {
 
     implementation(project(":msnet"))
 
-    implementation("org.chromium.net:cronet-api:119.6045.31")
-    implementation("org.chromium.net:cronet-common:119.6045.31")
-    implementation("org.chromium.net:cronet-embedded:119.6045.31")
+    implementation("org.chromium.net:cronet-api:141.7340.3")
+    implementation("org.chromium.net:cronet-common:141.7340.3")
+    implementation("org.chromium.net:cronet-embedded:141.7340.3")
 }
